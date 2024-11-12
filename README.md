@@ -1,4 +1,4 @@
-![mi-maarif-tempursari](public/assets/templates/admin/logo-hd.png "mi-maarif-tempursari")
+![mi-maarif-tempursari](public/assets/templates/admin/img/forgot-2.png "mi-maarif-tempursari")
 
 Aplikasi Sistem Informasi Sekolah (ASIS) sekolah Madrasah Ibtidaiyah Swasta Ma'arif Tempursari Mantingan ngawi(mi-maarif-tempursari)
 
