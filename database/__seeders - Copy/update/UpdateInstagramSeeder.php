@@ -1,0 +1,45 @@
+<?php
+
+namespace Database\Seeders\Update;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+
+class UpdateInstagramSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        // Ambil data terbaru dari tabel instagram
+        $instagramData = DB::table('instagram')->get();
+
+        // Format data sebagai array PHP
+        $seederContent = "<?php\n\nnamespace Database\\Seeders;\n\nuse Illuminate\\Database\\Seeder;\nuse Illuminate\\Support\\Facades\\DB;\n\nclass InstagramTableSeeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     *\n     * @return void\n     */\n    public function run()\n    {\n";
+
+        foreach ($instagramData as $data) {
+            $escapedNama = addslashes($data->nama);
+            $escapedKeterangan = addslashes($data->keterangan);
+            
+            $seederContent .= "        DB::table('instagram')->updateOrInsert([\n";
+            $seederContent .= "            'id' => '{$data->id}',\n";
+            $seederContent .= "        ], [\n";
+            $seederContent .= "            'nama' => '{$escapedNama}',\n";
+            $seederContent .= "            'tanggal' => '{$data->tanggal}',\n";
+            $seederContent .= "            'keterangan' => '{$escapedKeterangan}',\n";
+            $seederContent .= "            'status' => '{$data->status}',\n";
+            $seederContent .= "            'created_at' => '{$data->created_at}',\n";
+            $seederContent .= "            'updated_at' => '{$data->updated_at}',\n";
+            $seederContent .= "        ]);\n";
+        }
+
+        $seederContent .= "    }\n}\n";
+
+        // Tulis data terbaru ke file seeder
+        File::put(database_path('seeders/InstagramTableSeeder.php'), $seederContent);
+    }
+}

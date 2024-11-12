@@ -1,0 +1,66 @@
+{
+    "name":        "arcanedev/laravel-settings",
+    "description": "This package allows you to persists configs/settings for Laravel projects.",
+    "homepage":    "https://github.com/ARCANEDEV/LaravelSettings",
+    "keywords":    [
+        "arcanedev", "laravel", "config", "settings", "json", "array", "database", "db"
+    ],
+    "authors":  [
+        {
+            "name":     "ARCANEDEV",
+            "email":    "arcanedev.maroc@gmail.com",
+            "homepage": "https://github.com/arcanedev-maroc",
+            "role":     "Developer"
+        }
+    ],
+    "type":    "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.1",
+        "ext-json": "*",
+        "arcanedev/support": "^10.0"
+    },
+    "require-dev": {
+        "laravel/framework": "^10.0",
+        "mockery/mockery": "^1.4.2",
+        "orchestra/testbench-core": "^8.0",
+        "phpunit/phpunit": "^9.5.10",
+        "predis/predis": "^1.1.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Arcanedev\\LaravelSettings\\": "src/"
+        },
+        "files": ["helpers.php"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Arcanedev\\LaravelSettings\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "10.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Arcanedev\\LaravelSettings\\SettingsServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "phpunit --colors=always",
+        "test:dox": "phpunit --testdox --colors=always",
+        "test:cov": "phpunit --coverage-html coverage"
+    },
+    "suggest": {
+        "illuminate/redis": "This package allows you to persist the settings into a redis server."
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
