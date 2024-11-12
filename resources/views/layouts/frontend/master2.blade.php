@@ -49,19 +49,19 @@ $compact = array_merge($compact, compact('page_attr_title', 'search_master_key',
         <meta charset='utf-8'/>
         <meta content='width=device-width, initial-scale=1' name='viewport'/>
         <meta content='blogger' name='generator'/>
-        <link href='https://mauq.madrasahku.sch.id/' hreflang='x-default' rel='alternate'/>
+        <link href='https://mismaariftempursari.sch.id/' hreflang='x-default' rel='alternate'/>
         <link href='http://www.blogger.com/openid-server.g' rel='openid.server'/>
-        <link href='https://mauq.madrasahku.sch.id/' rel='openid.delegate'/>
-        <link href='https://mauq.madrasahku.sch.id/' rel='canonical'/>
+        <link href='https://mismaariftempursari.sch.id/' rel='openid.delegate'/>
+        <link href='https://mismaariftempursari.sch.id/' rel='canonical'/>
         <title>{{ $page_attr_title }}</title>
         <meta name="description" content="{{ $page_attr->description }}">
     <meta name="author" content="{{ $page_attr->author }}">
     <meta name="keywords" content="{{ $page_attr->keywords }}">
 
-        <link href='https://mauq.madrasahku.sch.id/feeds/posts/default' rel='alternate' title='MA Ulumul Qur&#39;an 2023 - Atom' type='application/atom+xml'/>
-        <link href='https://mauq.madrasahku.sch.id/feeds/posts/default?alt=rss' rel='alternate' title='MA Ulumul Qur&#39;an 2023 - RSS' type='application/rss+xml'/>
-        <link href='http://www.blogger.com/feeds/6914196781153322292/posts/default' rel='alternate' title='MA Ulumul Qur&#39;an 2023 - Atom' type='application/atom+xml'/>
-        <link href='https://mauq.madrasahku.sch.id/' hreflang='x-default' rel='alternate'/>
+        <link href='https://mismaariftempursari.sch.id/feeds/posts/default' rel='alternate' title="MIS Ma'arif tempursari - Atom" type='application/atom+xml'/>
+        <link href='https://mismaariftempursari.sch.id/feeds/posts/default?alt=rss' rel='alternate' title="MIS Ma'arif tempursari - RSS" type='application/rss+xml'/>
+        <link href='http://www.blogger.com/feeds/6914196781153322292/posts/default' rel='alternate' title="MIS Ma'arif tempursari - Atom" type='application/atom+xml'/>
+        <link href='https://mismaariftempursari.sch.id/' hreflang='x-default' rel='alternate'/>
         <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
         <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
         <!-- Open Graph / Facebook -->
