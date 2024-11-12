@@ -1,5 +1,5 @@
 {
-    "name": "mismaariftempursari",
+    "name": "masud/mismaariftempursari",
     "type": "project",
     "description": "MIS Ma'arif Tempursari adalah sebuah institusi pendidikan Madrasah Ibtidaiyah swasta yang berlokasi di Jl. Raya Mantingan Sine Km 6,5 Tempursari, Kab. Ngawi.",
     "keywords": [
@@ -14,7 +14,7 @@
     "license": "GNU",
     "require": {
         "php": "^8.1",
-        "arcanedev/laravel-settings": "10.x-dev",
+        "arcanedev/laravel-settings": "^10.0",
         "cviebrock/eloquent-sluggable": "^10.0",
         "doctrine/dbal": "^3.3",
         "donatj/phpuseragentparser": "^1.7",
@@ -31,7 +31,7 @@
         "phpoffice/phpspreadsheet": "^1.22",
         "sentry/sentry-laravel": "^3.8",
         "spatie/laravel-permission": "^5.10",
-        "spatie/laravel-sitemap": "^6.2",
+        "spatie/laravel-sitemap": "^6.4",
         "unisharp/laravel-filemanager": "^2.5",
         "yajra/laravel-datatables-oracle": "^10.4"
     },

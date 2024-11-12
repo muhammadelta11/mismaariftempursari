@@ -37,7 +37,7 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
      * @param string|array|null $subnets String or array of subnets using CIDR notation that will be used by IpUtils.
      *                                   If null is passed, the standard private subnets will be used.
      */
-    public function __construct(HttpClientInterface $client, string|array $subnets = null)
+    public function __construct(HttpClientInterface $client, string|array|null $subnets = null)
     {
         if (!class_exists(IpUtils::class)) {
             throw new \LogicException(sprintf('You cannot use "%s" if the HttpFoundation component is not installed. Try running "composer require symfony/http-foundation".', __CLASS__));
@@ -56,8 +56,20 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
 
         $subnets = $this->subnets;
 
-        $options['on_progress'] = function (int $dlNow, int $dlSize, array $info) use ($onProgress, $subnets): void {
+        $options['on_progress'] = static function (int $dlNow, int $dlSize, array $info) use ($onProgress, $subnets): void {
+            static $lastUrl = '';
             static $lastPrimaryIp = '';
+
+            if ($info['url'] !== $lastUrl) {
+                $host = trim(parse_url($info['url'], PHP_URL_HOST) ?: '', '[]');
+
+                if ($host && IpUtils::checkIp($host, $subnets ?? IpUtils::PRIVATE_SUBNETS)) {
+                    throw new TransportException(sprintf('Host "%s" is blocked for "%s".', $host, $info['url']));
+                }
+
+                $lastUrl = $info['url'];
+            }
+
             if ($info['primary_ip'] !== $lastPrimaryIp) {
                 if ($info['primary_ip'] && IpUtils::checkIp($info['primary_ip'], $subnets ?? IpUtils::PRIVATE_SUBNETS)) {
                     throw new TransportException(sprintf('IP "%s" is blocked for "%s".', $info['primary_ip'], $info['url']));
@@ -72,13 +84,18 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
         return $this->client->request($method, $url, $options);
     }
 
-    public function stream(ResponseInterface|iterable $responses, float $timeout = null): ResponseStreamInterface
+    public function stream(ResponseInterface|iterable $responses, ?float $timeout = null): ResponseStreamInterface
     {
         return $this->client->stream($responses, $timeout);
     }
 
+    /**
+     * @deprecated since Symfony 7.1, configure the logger on the wrapped HTTP client directly instead
+     */
     public function setLogger(LoggerInterface $logger): void
     {
+        trigger_deprecation('symfony/http-client', '7.1', 'Configure the logger on the wrapped HTTP client directly instead.');
+
         if ($this->client instanceof LoggerAwareInterface) {
             $this->client->setLogger($logger);
         }

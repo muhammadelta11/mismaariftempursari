@@ -203,9 +203,14 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
         }
 
         switch ($cryptoMethod = $options['crypto_method']) {
-            case \STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT: $cryptoMethod |= \STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT;
-            case \STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT: $cryptoMethod |= \STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT;
-            case \STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT: $cryptoMethod |= \STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT;
+            case \STREAM_CRYPTO_METHOD_TLSv1_0_CLIENT:
+                $cryptoMethod |= \STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT;
+                // no break
+            case \STREAM_CRYPTO_METHOD_TLSv1_1_CLIENT:
+                $cryptoMethod |= \STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT;
+                // no break
+            case \STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT:
+                $cryptoMethod |= \STREAM_CRYPTO_METHOD_TLSv1_3_CLIENT;
         }
 
         $context = [
@@ -264,7 +269,7 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
         return new NativeResponse($this->multi, $context, implode('', $url), $options, $info, $resolver, $onProgress, $this->logger);
     }
 
-    public function stream(ResponseInterface|iterable $responses, float $timeout = null): ResponseStreamInterface
+    public function stream(ResponseInterface|iterable $responses, ?float $timeout = null): ResponseStreamInterface
     {
         if ($responses instanceof NativeResponse) {
             $responses = [$responses];
@@ -399,13 +404,17 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
                     $redirectHeaders['no_auth'] = array_filter($redirectHeaders['no_auth'], $filterContentHeaders);
                     $redirectHeaders['with_auth'] = array_filter($redirectHeaders['with_auth'], $filterContentHeaders);
 
-                    stream_context_set_option($context, ['http' => $options]);
+                    if (\PHP_VERSION_ID >= 80300) {
+                        stream_context_set_options($context, ['http' => $options]);
+                    } else {
+                        stream_context_set_option($context, ['http' => $options]);
+                    }
                 }
             }
 
             [$host, $port] = self::parseHostPort($url, $info);
 
-            if (false !== (parse_url($location, \PHP_URL_HOST) ?? false)) {
+            if (false !== (parse_url($location.'#', \PHP_URL_HOST) ?? false)) {
                 // Authorization and Cookie headers MUST NOT follow except for the initial host name
                 $requestHeaders = $redirectHeaders['host'] === $host && $redirectHeaders['port'] === $port ? $redirectHeaders['with_auth'] : $redirectHeaders['no_auth'];
                 $requestHeaders[] = 'Host: '.$host.$port;
