@@ -1,13 +1,12 @@
 @extends('layouts.frontend.master2')
 @section('content')
- 
-    @php
+    <!-- @php
         $p = 'setting.home';
         $k = "$p.hero";
         $filter = [['search' => '__periode_nama__', 'replace' => $periode->nama], ['search' => '__periode_dari__', 'replace' => $periode->dari], ['search' => '__periode_sampai__', 'replace' => $periode->sampai]];
         $anim = 1;
-    @endphp
-    @if (settings()->get("$k.visible"))
+    @endphp -->
+    
 
 
     <div class='clr'></div>
