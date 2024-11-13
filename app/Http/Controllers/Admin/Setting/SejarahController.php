@@ -28,6 +28,12 @@ class SejarahController extends Controller
         settings()->set('sejarah.html', $detail->html)->save();
         settings()->set('sejarah.judul', $request->judul)->save();
         settings()->set('sejarah.sub_judul', $request->sub_judul)->save();
+  
+        \DB::table('settings')->updateOrInsert(
+            ['key' => 'sejarah.html'],
+            ['value' => $detail->html]
+        );
+    
         return response()->json();
     }
 }

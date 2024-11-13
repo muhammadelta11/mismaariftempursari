@@ -24,7 +24,7 @@ $compact = array_merge($compact, compact('page_attr_title', 'search_master_key',
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
+<meta name="google-site-verification" content="wqP3f5bSppJ6UEIDLdO40Cp4AVpJCAPcBwiLYZtgl7c" />
 <!-- Favicon -->
 <link rel="icon" href="{{ asset('favicon/favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('favicon/apple-icon-57x57.png') }}">
